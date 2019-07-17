@@ -5,12 +5,14 @@ namespace console_calculator {
     public enum PRIORITY_LEVEL { HIGH = 3, MEDIUM = 2, LOW = 1, LOWEST = 0};
     
     class PostfixNotation {
+        Common f = new Common();
+
         public List<char> getPostfixNotation(string exp) {
             List<char> postfixForm = new List<char>();
             Stack<char> stack = new Stack<char>();
 
             for (int i = 0; i < exp.Length; i++) {
-                if (isNumber(exp[i])) {
+                if (f.isNumber(exp[i])) {
                     postfixForm.Add(exp[i]);
                 }
                 else if (stack.Count == 0 || stack.Peek() == '(') {
@@ -44,15 +46,6 @@ namespace console_calculator {
             }
 
             return postfixForm;
-        }
-
-
-        private bool isNumber(char symbol) {
-            if (symbol >= '0' && symbol <= '9') {
-                return true;
-            }
-
-            return false;
         }
 
 
