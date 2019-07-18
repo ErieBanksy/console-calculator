@@ -40,10 +40,16 @@ namespace console_calculator {
                 else if (c == '^') {
                     a = resStack.Pop();
                     b = resStack.Pop();
-                    for (int i = 0; i < a - 1; i++) {
-                        b = b * b;
-                    }
-                    resStack.Push(b);
+                    res = Math.Pow(b, a);
+                    //for (int i = 0; i < a - 1; i++) {
+                    //    b = b * b;
+                    //}
+                    resStack.Push(res);
+                }
+                else if (c == 'm') {
+                    a = resStack.Pop();
+                    res = a * (-1);
+                    resStack.Push(res);
                 }
             }
             return resStack;

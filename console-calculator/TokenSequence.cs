@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace console_calculator {
     class TokenSequence {
@@ -10,22 +11,21 @@ namespace console_calculator {
                 tokenSeq.Add(expression[i]);
             }
 
+            if (tokenSeq[0] == '-') {
+                tokenSeq[0] = 'm';
+            }
+
             for (int i = 1; i < tokenSeq.Count; i++) {
-                if (i - 1 == 0 && tokenSeq[i] == '-') {
-                    tokenSeq[i] = 'm';
-                }
-                else if ((tokenSeq[i - 1] == '*' || tokenSeq[i - 1] == '/' || tokenSeq[i - 1] == '+' || tokenSeq[i - 1] == '-') && !comFunc.isNumber(tokenSeq[i])) {
+                if ((tokenSeq[i - 1] == '*' || tokenSeq[i - 1] == '/' || 
+                    tokenSeq[i - 1] == '+' || tokenSeq[i - 1] == '-' || 
+                    tokenSeq[i - 1] == 'm' || tokenSeq[i - 1] == '(' ||
+                    tokenSeq[i - 1] == '^') && tokenSeq[i] == '-') {
                     tokenSeq[i] = 'm';
                 }
                 else {
                     tokenSeq[i] = expression[i];
                 }
             }
-
-            //foreach (char el in exp) {
-            //    Console.Write(el);
-            //}
-            //Console.WriteLine("\n");
 
             return tokenSeq;
         }
