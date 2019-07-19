@@ -18,16 +18,17 @@ namespace console_calculator {
             getExample("2^-3", 7);
             getExample("-2^3", 8);
             getExample("2^(-2+2)", 9);
+            getExample("21/7+2^1--5*42+140", 10);
         }
 
         private void getExample(string example, int exampleNum) {
             Console.Write("Example " + exampleNum + ": ");
-            List<char> pf = ts.getTokenSeq(example);
+            List<string> pf = ts.getTokenSeq(example);
 
             pf = postfixNot.getPostfixNotation(pf);
 
             Console.Write(example + "\n Postfix: ");
-            foreach (char el in pf) {
+            foreach (string el in pf) {
                 Console.Write(el);
             }
             Console.WriteLine();

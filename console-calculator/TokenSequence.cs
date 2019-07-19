@@ -1,30 +1,47 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace console_calculator {
     class TokenSequence {
         Common comFunc = new Common();
 
-        public List<char> getTokenSeq(string expression) {
-            List<char> tokenSeq = new List<char>();
+        public List<string> getTokenSeq(string expression) {
+            List<string> tmpTokenSeq = new List<string>();
+            List<string> tokenSeq = new List<string>();
+
             for (int i = 0; i < expression.Length; i++) {
-                tokenSeq.Add(expression[i]);
+                tmpTokenSeq.Add(expression[i].ToString());
             }
 
-            if (tokenSeq[0] == '-') {
-                tokenSeq[0] = 'm';
+            if (tmpTokenSeq[0] == "-") {
+                tmpTokenSeq[0] = "m";
             }
 
-            for (int i = 1; i < tokenSeq.Count; i++) {
-                if ((tokenSeq[i - 1] == '*' || tokenSeq[i - 1] == '/' || 
-                    tokenSeq[i - 1] == '+' || tokenSeq[i - 1] == '-' || 
-                    tokenSeq[i - 1] == 'm' || tokenSeq[i - 1] == '(' ||
-                    tokenSeq[i - 1] == '^') && tokenSeq[i] == '-') {
-                    tokenSeq[i] = 'm';
+            for (int j = 1; j < tmpTokenSeq.Count; j++) {
+                if ((tmpTokenSeq[j - 1] == "*" || tmpTokenSeq[j - 1] == "/" ||
+                    tmpTokenSeq[j - 1] == "+" || tmpTokenSeq[j - 1] == "-" ||
+                    tmpTokenSeq[j - 1] == "m" || tmpTokenSeq[j - 1] == "(" ||
+                    tmpTokenSeq[j - 1] == "^") && tmpTokenSeq[j] == "-") {
+                    tmpTokenSeq[j] = "m";
                 }
                 else {
-                    tokenSeq[i] = expression[i];
+                    tmpTokenSeq[j] = expression[j].ToString();
                 }
+            }
+            
+
+            string value = "";
+            for (int i = 0; i < tmpTokenSeq.Count; i++) {
+                if (comFunc.isNumber(tmpTokenSeq[i])) {
+                    value = value + tmpTokenSeq[i];
+                }
+                else {
+                    tokenSeq.Add(value);
+                    tokenSeq.Add(tmpTokenSeq[i]);
+                    value = "";
+                }
+            }
+            if (value.Length != 0) {
+                tokenSeq.Add(value);
             }
 
             return tokenSeq;

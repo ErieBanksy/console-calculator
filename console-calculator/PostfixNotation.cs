@@ -7,30 +7,25 @@ namespace console_calculator {
     class PostfixNotation {
         Common f = new Common();
 
-        public List<char> getPostfixNotation(List<char> exp) {
-            List<char> postfixForm = new List<char>();
-            Stack<char> stack = new Stack<char>();
+        public List<string> getPostfixNotation(List<string> exp) {
+            List<string> postfixForm = new List<string>();
+            Stack<string> stack = new Stack<string>();
 
             for (int i = 0; i < exp.Count; i++) {
-                //Console.WriteLine("char = " + exp[i]);
                 if (f.isNumber(exp[i])) {
-                    //Console.WriteLine("1");
                     postfixForm.Add(exp[i]);
                 }
-                else if (exp[i] == 'm') {
+                else if (exp[i] == "m") {
                     stack.Push(exp[i]);
                 }
-                else if (stack.Count == 0 || stack.Peek() == '(') {
-                    //Console.WriteLine("2");
+                else if (stack.Count == 0 || stack.Peek() == "(") {
                     stack.Push(exp[i]);
                 }
-                else if ((getPriority(exp[i]) > getPriority(stack.Peek())) && getPriority(exp[i]) != PRIORITY_LEVEL.NONE) {
-                    //Console.WriteLine("3");
+                else if ((getPriority(exp[i]) > getPriority(stack.Peek())) && getPriority(exp[i].ToString()) != PRIORITY_LEVEL.NONE) {
                     stack.Push(exp[i]);
                 }
                 else if ((getPriority(exp[i]) <= getPriority(stack.Peek())) && getPriority(exp[i]) != PRIORITY_LEVEL.NONE) {
-                    //Console.WriteLine("4");
-                    while (getPriority(exp[i]) < getPriority(stack.Peek())) { // < или <= 
+                    while (getPriority(exp[i]) <= getPriority(stack.Peek())) { 
                         postfixForm.Add(stack.Pop());
                         if (stack.Count == 0) {
                             break;
@@ -38,13 +33,11 @@ namespace console_calculator {
                     }
                     stack.Push(exp[i]);
                 }
-                else if (exp[i] == '(') {
-                    //Console.WriteLine("5");
+                else if (exp[i] == "(") {
                     stack.Push(exp[i]);
                 }
-                else if (exp[i] == ')') {
-                    //Console.WriteLine("6");
-                    while (stack.Peek() != '(') {
+                else if (exp[i] == ")") {
+                    while (stack.Peek() != "(") {
                         postfixForm.Add(stack.Pop());
                     }
                     stack.Pop();
@@ -59,17 +52,17 @@ namespace console_calculator {
         }
 
 
-        private PRIORITY_LEVEL getPriority(char operation) {
-            if (operation == '^') {
+        private PRIORITY_LEVEL getPriority(string operation) {
+            if (operation == "^") {
                 return PRIORITY_LEVEL.HIGH;
             }
-            else if (operation == 'm') {
+            else if (operation == "m") {
                 return PRIORITY_LEVEL.MEDIUM;
             }
-            else if (operation == '*' || operation == '/') {
+            else if (operation == "*" || operation == "/") {
                 return PRIORITY_LEVEL.LOW;
             }
-            else if (operation == '+' || operation == '-') {
+            else if (operation == "+" || operation == "-") {
                 return PRIORITY_LEVEL.LOWEST;
             }
             else {
