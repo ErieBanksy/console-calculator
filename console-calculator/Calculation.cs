@@ -2,10 +2,20 @@
 using System.Collections.Generic;
 
 namespace console_calculator {
+
+    /**
+    * \brief Класс для вычисления результата математического выражения.
+    */
     class Calculation {
 
         Common f = new Common();
 
+        /**
+        * \brief Функция вычисления значения входного математического выражения.
+        * 
+        * \param [in] pfnt - список содержащий элементы постфиксной записи, полученной из входной строки.
+        * \return возвращает полученое значение математического выражения.
+        */
         public Stack<double> getResult(List<string> pfnt) {
             Stack<double> resStack = new Stack<double>();
             double a, b, res, outRes;

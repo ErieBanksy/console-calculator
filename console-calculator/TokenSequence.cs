@@ -1,9 +1,23 @@
 ﻿using System.Collections.Generic;
 
+
 namespace console_calculator {
+
+    /**
+    * \brief Класс для получения последовательности токенов из входной строки.
+    */
     class TokenSequence {
         Common comFunc = new Common();
 
+        /**
+        * \brief Функция получения списка токенов.
+        * 
+        * Числа, математические операции и скобки добавляются в список токенов.
+        * Унарный минус заменяет на токен m.
+        * 
+        * \param [in] expression - входная строка.
+        * \return возвращает список токенов полученный из входной строки.
+        */
         public List<string> getTokenSeq(string expression) {
             List<string> tmpTokenSeq = new List<string>();
             List<string> tokenSeq = new List<string>();

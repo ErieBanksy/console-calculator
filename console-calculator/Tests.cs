@@ -2,12 +2,19 @@
 using System.Collections.Generic;
 
 namespace console_calculator {
+
+    /**
+    * \brief Класс для тестирования работы консольного калькулятора.
+    */
     class Tests {
 
         Calculation calc = new Calculation();
         PostfixNotation postfixNot = new PostfixNotation();
         TokenSequence ts = new TokenSequence();
 
+        /**
+        * \brief Функция, содержащая набор тестовых примеров.
+        */
         public void testExamples() {
             getExample("1---2^2", 1);
             getExample("2+3*4", 2);
@@ -21,6 +28,12 @@ namespace console_calculator {
             getExample("21/7+2^1--5*42+140", 10);
         }
 
+        /**
+        * \brief Функция обработки тестовых примеров.
+        * 
+        * \param [in] example - пример в строковом виде.
+        * \param [in] exampleNum - порядковый номер примера.
+        */
         private void getExample(string example, int exampleNum) {
             Console.Write("Example " + exampleNum + ": ");
             List<string> pf = ts.getTokenSeq(example);
